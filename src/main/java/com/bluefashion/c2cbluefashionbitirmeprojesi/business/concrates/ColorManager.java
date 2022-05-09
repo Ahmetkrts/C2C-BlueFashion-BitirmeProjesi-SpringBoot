@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.ColorService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ColorGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ColorListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateColorRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteColorRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.color.ColorGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.color.ColorListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.CreateColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.DeleteColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.UpdateColorRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.ColorDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Color;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +62,7 @@ public class ColorManager implements ColorService {
 
     @Override
     public Result update(UpdateColorRequest updateColorRequest) throws BusinessException {
-        checkIfColorName(updateColorRequest.getColorName());
+
         Color result = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
         this.colorDao.save(result);
         return new SucessResult(updateColorRequest.getColorName() + " Başarıyla Güncellendi..");
@@ -94,7 +97,7 @@ public class ColorManager implements ColorService {
         return new SuccessDataResult<>(result, "Renkler Listelendi..");
     }
 
-    private void checkIfColorGetById(int id) throws BusinessException {
+    public void checkIfColorGetById(int id) throws BusinessException {
         if (!this.colorDao.existsById(id)) {
             throw new BusinessException(id + "No'ya Ait Renk Bulunamadı..");
         }

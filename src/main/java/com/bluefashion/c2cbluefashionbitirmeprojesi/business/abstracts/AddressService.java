@@ -1,10 +1,10 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts;
 
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.AddressGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.AddressListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateAddressRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteAddressRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.CreateAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.DeleteAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.UpdateAddressRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
@@ -25,5 +25,7 @@ public interface AddressService {
     DataResult<List<AddressListDto>> getAllPaged(int pageNo, int pageSize);
 
     DataResult<List<AddressListDto>> getAllSorted(boolean sort);
+
+    void checkIfAddressGetById(int id) throws BusinessException;
 
 }

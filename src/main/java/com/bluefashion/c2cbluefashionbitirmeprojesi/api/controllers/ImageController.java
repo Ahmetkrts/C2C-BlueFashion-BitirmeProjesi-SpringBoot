@@ -1,11 +1,11 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.api.controllers;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.ImageService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ImageGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ImageListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateImageRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteImageRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.image.ImageGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.image.ImageListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.CreateImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.DeleteImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.UpdateImageRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;

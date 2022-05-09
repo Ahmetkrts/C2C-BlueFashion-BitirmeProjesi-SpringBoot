@@ -1,11 +1,11 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.api.controllers;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.UserService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.UserGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.UserListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateUserRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteUserRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateUserRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.user.UserGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.user.UserListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.user.CreateUserRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.user.DeleteUserRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.user.UpdateUserRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;

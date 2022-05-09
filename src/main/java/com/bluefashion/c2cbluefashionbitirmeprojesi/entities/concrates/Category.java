@@ -1,13 +1,10 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +26,13 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<Category> subCategories ;
+    private List<Category> subCategories;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Size> sizes;
 
 
 }

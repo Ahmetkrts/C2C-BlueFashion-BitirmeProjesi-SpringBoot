@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.CommentService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CommentGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CommentListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateCommentRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteCommentRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.CreateCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.DeleteCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.UpdateCommentRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.CommentDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +108,7 @@ public class CommentManager implements CommentService {
         return new SuccessDataResult<>(result, "Yorumlar Listelendi..");
     }
 
-    private void checkIfCommentGetById(int id) throws BusinessException {
+    public void checkIfCommentGetById(int id) throws BusinessException {
         if (!this.commentDao.existsById(id)) {
             throw new BusinessException(id + " No'ya Ait Yorum Bulunamadı..");
         }

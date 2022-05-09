@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.AddressService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.AddressGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.AddressListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateAddressRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteAddressRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.CreateAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.DeleteAddressRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.UpdateAddressRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.AddressDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Address;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +56,9 @@ public class AddressManager implements AddressService {
     public Result add(CreateAddressRequest createAddressRequest) {
 
         Address result = this.modelMapperService.forRequest().map(createAddressRequest, Address.class);
+        result.setAddressId(0);
         this.addressDao.save(result);
+
         return new SucessResult("Başarıyla Eklendi..");
     }
 
@@ -94,7 +99,7 @@ public class AddressManager implements AddressService {
         return new SuccessDataResult<>(result, "Adresler Listelendi..");
     }
 
-    private void checkIfAddressGetById(int id) throws BusinessException {
+    public void checkIfAddressGetById(int id) throws BusinessException {
         if (!this.addressDao.existsById(id)) {
             throw new BusinessException(id + " No'ya Ait Adres Bulunamadı..");
         }

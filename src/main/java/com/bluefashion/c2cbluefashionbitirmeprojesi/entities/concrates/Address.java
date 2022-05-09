@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,6 +38,14 @@ public class Address {
     private String addressPostCode;
     @Column(name = "address_full_address")
     private String addressFullAdress;
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "address")
+    private List<Shipping> shippings;
 
 
 }

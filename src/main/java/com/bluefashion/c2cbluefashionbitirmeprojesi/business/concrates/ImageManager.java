@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.ImageService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ImageGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ImageListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateImageRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteImageRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.image.ImageGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.image.ImageListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.CreateImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.DeleteImageRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.image.UpdateImageRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.ImageDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Image;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +97,7 @@ public class ImageManager implements ImageService {
         return new SuccessDataResult<>(result, "Resimler Listelendi..");
     }
 
-    private void checkIfImageGetById(int id) throws BusinessException {
+    public void checkIfImageGetById(int id) throws BusinessException {
 
         if (!this.imageDao.existsById(id)) {
             throw new BusinessException("No'ya Ait Görsel Bulunamadı..");

@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.ShippingService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ShippingGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ShippingListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateShippingRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteShippingRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateShippingRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.shipping.ShippingGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.shipping.ShippingListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.shipping.CreateShippingRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.shipping.DeleteShippingRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.shipping.UpdateShippingRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.ShippingDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Shipping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +97,7 @@ public class ShippingManager implements ShippingService {
         return new SuccessDataResult<>(result, "Gönderiler Listelendi..");
     }
 
-    private void checkIfShippingGetById(int id) throws BusinessException {
+    public void checkIfShippingGetById(int id) throws BusinessException {
         if (!this.shippingDao.existsById(id)) {
             throw new BusinessException(id + " No'ya Ait Gönderi Bulunamadı..");
         }

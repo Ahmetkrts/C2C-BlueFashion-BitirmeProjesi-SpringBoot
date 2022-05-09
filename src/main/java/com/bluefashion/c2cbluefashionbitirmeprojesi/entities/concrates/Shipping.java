@@ -27,4 +27,10 @@ public class Shipping {
     private String shippingDate;
     @Column(name = "shipping_tracking_number")
     private String shippingTrackingNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+
 }

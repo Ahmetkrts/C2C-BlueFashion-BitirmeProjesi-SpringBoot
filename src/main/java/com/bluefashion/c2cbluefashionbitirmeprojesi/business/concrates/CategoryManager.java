@@ -1,14 +1,17 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.CategoryService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CategoryGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CategoryListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateCategoryRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteCategoryRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateCategoryRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.category.CategoryGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.category.CategoryListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.category.CreateCategoryRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.category.DeleteCategoryRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.category.UpdateCategoryRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.mapping.ModelMapperService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.*;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SuccessDataResult;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.CategoryDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +58,17 @@ public class CategoryManager implements CategoryService {
         //category id 0 ise id kontrolu yapma çünkü id 0 sa parent degeri yoktur
         if (createCategoryRequest.getParent_CategoryId() != 0) {
             checkIfCategoryGetById(createCategoryRequest.getParent_CategoryId());
+
         }
         //-------------------------------------------------------------------------
         Category result = this.modelMapperService.forRequest().map(createCategoryRequest, Category.class);
         //Model Mapper Sınıfında bir karışıklık oluyor isimler yüzünden onu önlemek için manuel olarak ekleme yapılıyor
         result.setCategoryId(0);
-        result.setParent(this.categoryDao.getById(createCategoryRequest.getParent_CategoryId()));
+        if (createCategoryRequest.getParent_CategoryId() != 0) {
+            result.setParent(this.categoryDao.getById(createCategoryRequest.getParent_CategoryId()));
+
+        }
+
         //-------------------------------------------------------------------------------------------------------------
         this.categoryDao.save(result);
         return new SucessResult(createCategoryRequest.getCategoryName() + " Başarıyla Eklendi..");
@@ -68,7 +76,8 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result update(UpdateCategoryRequest updateCategoryRequest) throws BusinessException {
-        checkIfCategoryName(updateCategoryRequest.getCategoryName());
+
+
         //category id 0 ise id kontrolu yapma çünkü id 0 sa parent degeri yoktur
         if (updateCategoryRequest.getParent_CategoryId() != 0) {
             checkIfCategoryGetById(updateCategoryRequest.getParent_CategoryId());
@@ -76,8 +85,10 @@ public class CategoryManager implements CategoryService {
         //-------------------------------------------------------------------------
         Category result = this.modelMapperService.forRequest().map(updateCategoryRequest, Category.class);
         //Model Mapper Sınıfında bir karışıklık oluyor isimler yüzünden onu önlemek için manuel olarak ekleme yapılıyor
+        if (updateCategoryRequest.getParent_CategoryId() != 0) {
+            result.setParent(this.categoryDao.getById(updateCategoryRequest.getParent_CategoryId()));
+        }
 
-        result.setParent(this.categoryDao.getById(updateCategoryRequest.getParent_CategoryId()));
         //-------------------------------------------------------------------------------------------------------------
         this.categoryDao.save(result);
         return new SucessResult(updateCategoryRequest.getCategoryName() + " Başarıyla Güncellendi..");
@@ -112,7 +123,7 @@ public class CategoryManager implements CategoryService {
         return new SuccessDataResult<>(result, "Kategoriler Listelendi..");
     }
 
-    private void checkIfCategoryGetById(int id) throws BusinessException {
+    public void checkIfCategoryGetById(int id) throws BusinessException {
         if (!this.categoryDao.existsById(id)) {
             throw new BusinessException(id + "No'lu Kategori Bulunamadı");
         }

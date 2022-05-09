@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,10 +22,13 @@ public class Image {
     @Column(name = "image_Url")
     private String imageUrl;
 
-    @OneToOne(mappedBy = "coverImage")
-    private User coverUser;
+    @OneToMany(mappedBy = "coverImage")
+    private List<User> coverUsers;
 
-    @OneToOne(mappedBy = "profileImage")
-    private User profileUser;
+    @OneToMany(mappedBy = "profileImage")
+    private List<User> profileUsers;
+
+    @OneToMany(mappedBy = "productImage", cascade = CascadeType.ALL)
+    private List<Product> products;
 
 }

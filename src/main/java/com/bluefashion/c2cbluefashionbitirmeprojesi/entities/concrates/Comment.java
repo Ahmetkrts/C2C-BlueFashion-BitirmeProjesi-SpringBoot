@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +38,12 @@ public class Comment {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Comment> children;
 
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
 }

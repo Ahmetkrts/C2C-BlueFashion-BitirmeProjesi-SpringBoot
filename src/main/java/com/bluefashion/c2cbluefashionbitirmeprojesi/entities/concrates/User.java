@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -36,13 +37,22 @@ public class User {
     @Column(name = "user_seller")
     private String userSeller;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cover_image_id")
     private Image coverImage;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
+
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Product> products;
 
 
 }

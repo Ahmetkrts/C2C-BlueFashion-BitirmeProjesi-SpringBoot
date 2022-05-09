@@ -1,10 +1,10 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts;
 
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ColorGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.ColorListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateColorRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteColorRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.color.ColorGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.color.ColorListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.CreateColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.DeleteColorRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.color.UpdateColorRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
@@ -25,5 +25,7 @@ public interface ColorService {
     DataResult<List<ColorListDto>> getAllPaged(int pageNo, int pageSize);
 
     DataResult<List<ColorListDto>> getAllSorted(boolean sort);
+
+    void checkIfColorGetById(int id) throws BusinessException;
 
 }

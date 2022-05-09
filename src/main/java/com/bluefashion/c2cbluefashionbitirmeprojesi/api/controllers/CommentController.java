@@ -1,11 +1,11 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.api.controllers;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.CommentService;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CommentGetDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.CommentListDto;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.CreateCommentRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.DeleteCommentRequest;
-import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.UpdateCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentGetDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentListDto;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.CreateCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.DeleteCommentRequest;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.UpdateCommentRequest;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessException;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
