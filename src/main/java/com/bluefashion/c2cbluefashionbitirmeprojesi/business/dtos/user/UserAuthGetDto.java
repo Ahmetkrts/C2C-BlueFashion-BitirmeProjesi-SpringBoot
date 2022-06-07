@@ -9,21 +9,18 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserGetDto {
+public class UserAuthGetDto {
 
     private int userId;
     private String userFirstName;
     private String userLastName;
     private String userName;
-    private String userPassword;
     private String userMail;
     private String userCountry;
     private Date userRegisterDate;
     private String userAbout;
     private String userSeller;
-
     private int coverImageId;
-
     private int profileImageId;
     private String coverImage_imageUrl;
 

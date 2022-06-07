@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +32,11 @@ public class C2CBlueFashionBitirmeProjesiApplication {
         return new ModelMapper();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @ExceptionHandler
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationErrors(MethodArgumentNotValidException argumentNotValidException) {
@@ -46,4 +53,6 @@ public class C2CBlueFashionBitirmeProjesiApplication {
     public ErrorDataResult<Object> handleBusinessErrors(BusinessException businessException) {
         return new ErrorDataResult<>(businessException.getMessage(), "Business Error");
     }
+
+
 }

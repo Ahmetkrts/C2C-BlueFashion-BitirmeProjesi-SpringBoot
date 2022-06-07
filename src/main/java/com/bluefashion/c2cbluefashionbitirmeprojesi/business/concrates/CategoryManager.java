@@ -75,6 +75,17 @@ public class CategoryManager implements CategoryService {
     }
 
     @Override
+    public DataResult<List<CategoryListDto>> getCategoryByParentId(int parentId) throws BusinessException {
+        checkIfCategoryGetById(parentId);
+        List<Category> response = this.categoryDao.getByParent_CategoryId(parentId);
+        List<CategoryListDto> result = response.stream()
+                .map(category -> this.modelMapperService.forDto().map(category, CategoryListDto.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult<>(result, "Kategoriler Listelendi..");
+    }
+
+    @Override
     public Result update(UpdateCategoryRequest updateCategoryRequest) throws BusinessException {
 
 

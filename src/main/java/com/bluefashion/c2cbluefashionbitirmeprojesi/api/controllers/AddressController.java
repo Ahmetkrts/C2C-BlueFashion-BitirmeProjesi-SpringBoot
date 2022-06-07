@@ -30,6 +30,11 @@ public class AddressController {
         return this.addressService.getAll();
     }
 
+    @GetMapping("/getAddressListByUserId")
+    DataResult<List<AddressListDto>> getAddressListByUserId(@RequestParam int userId) throws BusinessException {
+        return this.addressService.getAddressListByUserId(userId);
+    }
+
     @GetMapping("getByAddressId")
     DataResult<AddressGetDto> getByAddressId(@RequestParam int addressId) throws BusinessException {
         return this.addressService.getByAddressId(addressId);

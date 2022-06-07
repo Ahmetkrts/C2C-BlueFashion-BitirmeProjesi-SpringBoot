@@ -35,6 +35,11 @@ public class CategoryController {
         return this.categoryService.getByCategoryId(categoryId);
     }
 
+    @GetMapping("getCategoryByParentId")
+    DataResult<List<CategoryListDto>> getCategoryByParentId(@RequestParam int parentId) throws BusinessException {
+        return this.categoryService.getCategoryByParentId(parentId);
+    }
+
     @PostMapping("/add")
     Result add(@RequestBody @Valid CreateCategoryRequest createCategoryRequest) throws BusinessException {
         return this.categoryService.add(createCategoryRequest);

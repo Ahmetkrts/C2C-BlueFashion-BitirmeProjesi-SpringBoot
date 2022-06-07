@@ -22,6 +22,8 @@ public interface CategoryService {
 
     Result delete(DeleteCategoryRequest deleteCategoryRequest) throws BusinessException;
 
+    DataResult<List<CategoryListDto>> getCategoryByParentId(int parentId) throws BusinessException;
+
     DataResult<List<CategoryListDto>> getAllPaged(int pageNo, int pageSize);
 
     DataResult<List<CategoryListDto>> getAllSorted(boolean sort);

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,11 +28,14 @@ import java.util.stream.Collectors;
 public class UserManager implements UserService {
     private UserDao userDao;
     private ModelMapperService modelMapperService;
+    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public UserManager(UserDao userDao, ModelMapperService modelMapperService) {
+    public UserManager(UserDao userDao, ModelMapperService modelMapperService, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.modelMapperService = modelMapperService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -77,6 +81,8 @@ public class UserManager implements UserService {
         checkIfUserMail(createUserRequest.getUserMail());
 
         User result = this.modelMapperService.forRequest().map(createUserRequest, User.class);
+        result.setUserPassword(this.passwordEncoder.encode(result.getUserPassword()));
+
         result.setUserId(0);
         this.userDao.save(result);
         return new SucessResult(createUserRequest.getUserName() + " Başarıyla Eklendi..");
@@ -85,6 +91,7 @@ public class UserManager implements UserService {
     @Override
     public Result update(UpdateUserRequest updateUserRequest) throws BusinessException {
         User result = this.modelMapperService.forRequest().map(updateUserRequest, User.class);
+        result.setUserPassword(this.passwordEncoder.encode(result.getUserPassword()));
         this.userDao.save(result);
         return new SucessResult(updateUserRequest.getUserName() + " Başarıyla Güncellendi..");
 

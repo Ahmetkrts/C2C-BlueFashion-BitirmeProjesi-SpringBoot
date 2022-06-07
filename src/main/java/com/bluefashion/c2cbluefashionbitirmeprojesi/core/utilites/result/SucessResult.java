@@ -5,7 +5,11 @@ public class SucessResult extends Result {
         super(true);
     }
 
-    public SucessResult( String message) {
+    public SucessResult(String message) {
         super(true, message);
+    }
+
+    public SucessResult(String message, int id) {
+        super(true, message, id);
     }
 }

@@ -1,6 +1,7 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.CommentService;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.ProductService;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentGetDto;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.comment.CommentListDto;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.comment.CreateCommentRequest;
@@ -27,11 +28,13 @@ import java.util.stream.Collectors;
 public class CommentManager implements CommentService {
     private CommentDao commentDao;
     private ModelMapperService modelMapperService;
+    private ProductService productService;
 
     @Autowired
-    public CommentManager(CommentDao commentDao, ModelMapperService modelMapperService) {
+    public CommentManager(CommentDao commentDao, ModelMapperService modelMapperService, ProductService productService) {
         this.commentDao = commentDao;
         this.modelMapperService = modelMapperService;
+        this.productService = productService;
     }
 
     @Override
@@ -50,6 +53,18 @@ public class CommentManager implements CommentService {
         Comment response = this.commentDao.getById(commentId);
         CommentGetDto result = this.modelMapperService.forDto().map(response, CommentGetDto.class);
         return new SuccessDataResult<>(result, commentId + " No'ya Ait Yorumlaetirildi..");
+    }
+
+    @Override
+    public DataResult<List<CommentListDto>> getCommentByProductId(int productId) throws BusinessException {
+        this.productService.checkIfProductGetById(productId);
+
+        List<Comment> response = this.commentDao.getByProduct_ProductId(productId);
+        List<CommentListDto> result = response.stream()
+                .map(comment -> this.modelMapperService.forDto().map(comment, CommentListDto.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult<>(result, "Yorumlar Listelendi..");
     }
 
     @Override

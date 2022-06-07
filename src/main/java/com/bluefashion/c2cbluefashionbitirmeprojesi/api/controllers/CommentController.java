@@ -59,4 +59,9 @@ public class CommentController {
     DataResult<List<CommentListDto>> getAllSorted(@RequestParam boolean sort) {
         return this.commentService.getAllSorted(sort);
     }
+
+    @GetMapping("/getCommentByProductId")
+    DataResult<List<CommentListDto>> getCommentByProductId(@RequestParam int productId) throws BusinessException {
+        return this.commentService.getCommentByProductId(productId);
+    }
 }

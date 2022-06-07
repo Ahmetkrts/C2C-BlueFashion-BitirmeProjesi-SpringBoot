@@ -20,6 +20,7 @@ public class CommentListDto {
     private String parent_commentTitle;
 
     private String userName;
+    private String profileImageImageUrl;
     private String productTitle;
 
 

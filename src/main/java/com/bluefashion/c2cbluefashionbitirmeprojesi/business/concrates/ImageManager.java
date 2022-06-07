@@ -14,12 +14,17 @@ import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Success
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.SucessResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.dataAccess.abstracts.ImageDao;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.entities.concrates.Image;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,18 +57,38 @@ public class ImageManager implements ImageService {
         return new SuccessDataResult<>(result, imageId + " No'ya Ait Renk Getirildi..");
     }
 
+    @Value("${file.upload-dir}")
+    String FILE_DIRECTORY;
+
     @Override
-    public Result add(CreateImageRequest createImageRequest) {
+    public Result add(CreateImageRequest createImageRequest) throws IOException {
+        String ext = "jpg";
+        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), ext);
+        File myFile = new File(FILE_DIRECTORY + name);
+        myFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(myFile);
+        fos.write(createImageRequest.getFile().getBytes());
+        fos.close();
 
         Image result = this.modelMapperService.forRequest().map(createImageRequest, Image.class);
-        this.imageDao.save(result);
-        return new SucessResult(" Başarıyla Eklendi..");
+        result.setImageUrl("asset/img/images/" + name);
+        Image imagess = this.imageDao.save(result);
+        return new SucessResult(" Başarıyla Eklendi..", imagess.getImageId());
     }
 
     @Override
-    public Result update(UpdateImageRequest updateImageRequest) throws BusinessException {
+    public Result update(UpdateImageRequest updateImageRequest) throws BusinessException, IOException {
         checkIfImageGetById(updateImageRequest.getImageId());
+        String ext = "jpg";
+        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), ext);
+        File myFile = new File(FILE_DIRECTORY + name);
+        myFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(myFile);
+        fos.write(updateImageRequest.getFile().getBytes());
+        fos.close();
+
         Image result = this.modelMapperService.forRequest().map(updateImageRequest, Image.class);
+        result.setImageUrl("asset/img/images/" + name);
         this.imageDao.save(result);
         return new SucessResult(" Başarıyla Güncellendi..");
 
@@ -107,4 +132,6 @@ public class ImageManager implements ImageService {
     private Sort.Direction ifSortConverter(boolean sort) {
         return sort ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
+
+
 }

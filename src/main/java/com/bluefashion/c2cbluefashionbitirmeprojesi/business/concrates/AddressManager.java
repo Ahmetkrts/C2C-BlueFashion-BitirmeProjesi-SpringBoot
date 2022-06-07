@@ -1,6 +1,7 @@
 package com.bluefashion.c2cbluefashionbitirmeprojesi.business.concrates;
 
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.AddressService;
+import com.bluefashion.c2cbluefashionbitirmeprojesi.business.abstracts.UserService;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressGetDto;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.dtos.address.AddressListDto;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.business.request.address.CreateAddressRequest;
@@ -27,16 +28,29 @@ import java.util.stream.Collectors;
 public class AddressManager implements AddressService {
     private AddressDao addressDao;
     private ModelMapperService modelMapperService;
+    private UserService userService;
 
     @Autowired
-    public AddressManager(AddressDao addressDao, ModelMapperService modelMapperService) {
+    public AddressManager(AddressDao addressDao, ModelMapperService modelMapperService, UserService userService) {
         this.addressDao = addressDao;
         this.modelMapperService = modelMapperService;
+        this.userService = userService;
     }
 
     @Override
     public DataResult<List<AddressListDto>> getAll() {
         List<Address> response = this.addressDao.findAll();
+        List<AddressListDto> result = response.stream()
+                .map(address -> this.modelMapperService.forDto().map(address, AddressListDto.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult<>(result, "Adresler Listelendi..");
+    }
+
+    @Override
+    public DataResult<List<AddressListDto>> getAddressListByUserId(int userId) throws BusinessException {
+        this.userService.checkIfUserId(userId);
+        List<Address> response = this.addressDao.getByUser_UserId(userId);
         List<AddressListDto> result = response.stream()
                 .map(address -> this.modelMapperService.forDto().map(address, AddressListDto.class))
                 .collect(Collectors.toList());

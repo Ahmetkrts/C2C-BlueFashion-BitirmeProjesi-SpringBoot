@@ -32,7 +32,7 @@ public class User {
     private String userCountry;
     @Column(name = "user_register_date")
     private Date userRegisterDate;
-    @Column(name = "user_about")
+    @Column(name = "user_about", length = 1024)
     private String userAbout;
     @Column(name = "user_seller")
     private String userSeller;

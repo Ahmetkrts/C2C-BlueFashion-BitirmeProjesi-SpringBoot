@@ -20,6 +20,7 @@ public class ProductListDto {
     private String categoryName;
     private String colorName;
     private String userName;
+    private String profileImageImageUrl;
     private String imageUrl;
 
 }

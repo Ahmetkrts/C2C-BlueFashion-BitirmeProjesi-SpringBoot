@@ -5,6 +5,10 @@ public class SuccessDataResult<T> extends DataResult<T> {
         super(data, true, message);
     }
 
+    public SuccessDataResult(T data, String message, int dataSize) {
+        super(data, true, message, dataSize);
+    }
+
     public SuccessDataResult(T data) {
         super(data, true);
     }

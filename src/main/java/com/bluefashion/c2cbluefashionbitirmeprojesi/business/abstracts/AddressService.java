@@ -14,6 +14,9 @@ import java.util.List;
 public interface AddressService {
     DataResult<List<AddressListDto>> getAll();
 
+    DataResult<List<AddressListDto>> getAddressListByUserId(int userId) throws BusinessException;
+
+
     DataResult<AddressGetDto> getByAddressId(int addressId) throws BusinessException;
 
     Result add(CreateAddressRequest createAddressRequest);

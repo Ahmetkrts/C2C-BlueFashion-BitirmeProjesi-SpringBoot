@@ -9,6 +9,7 @@ import com.bluefashion.c2cbluefashionbitirmeprojesi.core.exception.BusinessExcep
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.DataResult;
 import com.bluefashion.c2cbluefashionbitirmeprojesi.core.utilites.result.Result;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ImageService {
@@ -16,9 +17,10 @@ public interface ImageService {
 
     DataResult<ImageGetDto> getByImageId(int imageId) throws BusinessException;
 
-    Result add(CreateImageRequest createImageRequest);
+    Result add(CreateImageRequest createImageRequest) throws IOException;
 
-    Result update(UpdateImageRequest updateImageRequest) throws BusinessException;
+
+    Result update(UpdateImageRequest updateImageRequest) throws BusinessException, IOException;
 
     Result delete(DeleteImageRequest deleteImageRequest) throws BusinessException;
 

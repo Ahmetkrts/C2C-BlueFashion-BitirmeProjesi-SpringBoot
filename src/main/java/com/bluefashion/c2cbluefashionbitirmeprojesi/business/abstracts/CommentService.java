@@ -16,6 +16,8 @@ public interface CommentService {
 
     DataResult<CommentGetDto> getByCommentId(int commentId) throws BusinessException;
 
+    DataResult<List<CommentListDto>> getCommentByProductId(int productId) throws BusinessException;
+
     Result add(CreateCommentRequest createCommentRequest) throws BusinessException;
 
     Result update(UpdateCommentRequest updateCommentRequest) throws BusinessException;

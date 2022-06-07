@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductGetDto {
+public class ProductGetSinglePageDto {
 
     private int productId;
     private String productTitle;
@@ -15,11 +15,12 @@ public class ProductGetDto {
     private double productPrice;
     private double productDiscountPrice;
 
-    private int brandId;
-    private int sizeId;
-    private int categoryId;
-    private int colorId;
-    private int userId;
-    private int productImageId;
+    private String brandName;
+    private String sizeName;
+    private String categoryName;
+    private String colorName;
+    private String userName;
+    private String profileImageImageUrl;
+    private String imageUrl;
 
 }
